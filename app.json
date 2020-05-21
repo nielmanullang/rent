@@ -1,4 +1,14 @@
 {
   "name": "rent",
-  "displayName": "rent"
+  "displayName": "rent",
+  "apiUrl": "http://api.car.com/",
+  "apiUrlDev": "http://api-dev.car.com/",
+  "debug": false,
+  "colorPrimary": "#eedf51",
+  "colorPrimaryDark": "#eed121",
+  "colorTulang": "#fdfdfd",
+  "colorGreyDark": "#383838",
+  "colorGreylight": "#a9a9a9",
+  "colorGrey": "#dfdfdf",
+  "colorBlack": "#000000"
 }
