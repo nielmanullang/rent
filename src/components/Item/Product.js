@@ -72,7 +72,7 @@ class Product extends React.Component {
             shadowRadius: 2,
           }}>
           <Image
-            source={{uri: this.props.item.image[0].fileUrl}}
+            source={{uri: this.props.item.gambar}}
             style={styles.image}
           />
           <View
@@ -95,18 +95,18 @@ class Product extends React.Component {
           </View>
           <View>
             <Text style={styles.title}>
-              {convertToLetterCase(this.props.item.serviceType) +
+              {convertToLetterCase(this.props.item.status) +
                 ' ' +
-                convertToLetterCase(this.props.item.kategory)}
+                convertToLetterCase(this.props.item.jenis)}
             </Text>
             <Text style={styles.title}>
               {'Rp.' +
-                convertNumber(this.props.item.hargaRangeAwal) +
+                convertNumber(this.props.item.harga) +
                 ' - Rp.' +
-                convertNumber(this.props.item.hargaRangeAkhir)}
+                convertNumber(this.props.item.harga)}
             </Text>
             <Text style={styles.title}>
-              {this.props.item.vendorVO.kecamatan.namaKecamatan}
+              {this.props.item.deskripsi}
             </Text>
           </View>
         </View>

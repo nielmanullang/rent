@@ -56,10 +56,11 @@ class Login extends React.Component {
       this.props.navigation.state.params.data == "RENTER"
         ? "RENTER"
         : "PROVIDER";
-    const api = endPoint.login + "?type=" + type;
+    const api = endPoint.login;
     const data = {
       username: this.state.username,
       password: this.state.password,
+      role: type,
     };
     const header = {
       headers: {
@@ -67,41 +68,25 @@ class Login extends React.Component {
         Accept: "application/json",
       },
     };
-    // apiCall.post(api, data, this.getDoLogin, header);
-    this.getDoLogin();
+    apiCall.post(api, data, this.getDoLogin, header);
   };
 
   getDoLogin = (callback) => {
-    let type =
-      this.props.navigation.state.params.data == "RENTER"
-        ? "RENTER"
-        : "PROVIDER";
-    resetNavigation(
-      type === "RENTER" ? "CustomerIndex" : "ProviderIndex",
-      this.props.navigation
-    );
-    // console.log("callback", callback);
-    // if (callback != null && callback.data.message == "OK") {
-    //   let api = null;
-    //   if (callback.data.result.typeUser == "RENTER") {
-    //     api = endPoint.getDetailCustomer + "/" + callback.data.result.id;
-    //   } else {
-    //     api = endPoint.getDetailVendor + "/" + callback.data.result.id;
-    //   }
-    //   let header = { headers: { "Content-Type": "application/json" } };
-    //   getAsyncStoreSave("dataUser", callback.data.result, () => {
-    //     apiCall.get(api, header, this.getAccountPersonal, callback.data.result);
-    //   });
-    // } else {
-    //   this.refs.defaultToastBottom.ShowToastFunction(callback.data.result);
-    // }
+    if (callback != null && callback.data.status == "OK") {
+      const api = endPoint.getDetailUser + "?token=" + callback.data.token;
+      const header = { headers: { "Content-Type": "application/json" } };
+      getAsyncStoreSave("dataUser", callback.data, () => {
+        apiCall.get(api, header, this.getAccountPersonal, callback.data);
+      });
+    } else {
+      this.refs.defaultToastBottom.ShowToastFunction(callback.data.message);
+    }
   };
 
   getAccountPersonal = (callback, dataUser) => {
-    console.log("callback", callback);
-    if (callback != null && callback.data.message == "OK") {
-      getAsyncStoreSave("personalData", callback.data.result, () => {
-        dataUser.typeUser == "RENTER"
+    if (callback != null && callback.data.status == "OK") {
+      getAsyncStoreSave("personalData", callback.data.data, () => {
+        dataUser.role == "RENTER"
           ? resetNavigation("CustomerIndex", this.props.navigation)
           : resetNavigation("ProviderIndex", this.props.navigation);
       });

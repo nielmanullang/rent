@@ -56,8 +56,6 @@ export default function reducer(
       };
 
     case `${SET_FIRST_OPEN}_SUCCESS`:
-      console.log('FROM SUCCESS FIRT OPEN');
-      console.log(action);
       return {
         ...state,
         status: action.payload,

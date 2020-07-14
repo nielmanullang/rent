@@ -30,18 +30,15 @@ export const commonDispatch = (dispatch, data, status, action) => {
 export const handleCallbackRes = (dispatch, callback, action) => {
   if (callback != null) {
     if (callback == 'pending') {
-      // console.log(`PENDING ACTION ${action}`);
       dispatch(
         doFetchPending(`${action}_${PENDING_STATUS}`, PENDING_STATUS, callback),
       );
     } else {
-      // console.log(`SUKSESS ACTION ${action}`);
       dispatch(
         doFetchSuccess(`${action}_${SUCCESS_STATUS}`, SUCCESS_STATUS, callback),
       );
     }
   } else {
-    // console.log(`ERROR ACTION ${action}`);
     dispatch(doFetchError(`${action}_${ERROR_STATUS}`, ERROR_STATUS, null));
   }
 };

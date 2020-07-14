@@ -1,7 +1,7 @@
 import { Container, Content, View } from "native-base";
 import React from "react";
 import { Dimensions, StatusBar } from "react-native";
-import Category from "./../../components/Item/Category";
+import Product from "./../../components/Item/Product";
 import ItemGroup from "./../../components/Item/ItemGroup";
 import Toast from "./../../components/Toast";
 import { apiCall, getAsyncStoreLoad } from "./../../redux/actions/commonAction";
@@ -19,7 +19,7 @@ class HomePageScreen extends React.Component {
   state = {
     dataUser: null,
     personalData: null,
-    listKategory: [],
+    listVehicles: [],
     listHeader: [],
   };
 
@@ -29,22 +29,21 @@ class HomePageScreen extends React.Component {
   };
 
   getDataUser = (dataUser) => {
-    if (dataUser && dataUser.typeUser === "RENTER") {
-      this.getListKategory();
+    if (dataUser && dataUser.role === "RENTER") {
+      this.getListVehicles();
     }
     this.setState({ dataUser });
   };
 
-  getListKategory = () => {
-    let api = endPoint.getListKategory;
+  getListVehicles = () => {
+    let api = endPoint.vehicles;
     let header = { headers: { "Content-Type": "application/json" } };
-    apiCall.get(api, header, this.responeListKategory);
+    apiCall.get(api, header, this.responeListVehicles);
   };
 
-  responeListKategory = (callback) => {
-    console.log("callback", callback);
-    if (callback != null && callback.data.message == "OK") {
-      this.setState({ listKategory: callback.data.result });
+  responeListVehicles = (callback) => {
+    if (callback != null && callback.data && callback.data.data) {
+      this.setState({ listVehicles: callback.data.data });
     }
   };
 
@@ -52,8 +51,8 @@ class HomePageScreen extends React.Component {
     this.setState({ personalData });
   };
 
-  _actionKategory = (data) => {
-    this.props.navigation.navigate("Product", { data: data });
+  _actionDetail = (data) => {
+    this.props.navigation.push("ProductDetail", { data: data });
   };
 
   _actionItemGroup = (screen) => {
@@ -99,12 +98,12 @@ class HomePageScreen extends React.Component {
                 alignItems: "center",
               }}
             >
-              {this.state.listKategory.map((data, i) => {
+              {this.state.listVehicles.map((data, i) => {
                 return (
-                  <Category
+                  <Product
                     key={i}
                     item={data}
-                    _actionKategory={this._actionKategory}
+                    _actionDetail={this._actionDetail}
                   />
                 );
               })}

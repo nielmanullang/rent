@@ -55,21 +55,18 @@ class SignUpProviderScreen extends React.Component {
 
   _submitForm = () => {
     this.setState({ isVisibleLoading: true });
-    let formItem = this.state.formItem;
-    let type =
-      this.props.navigation.state.params.data == "RENTER"
-        ? "RENTER"
-        : "PROVIDER";
-    const api = endPoint.registrationUser + "?type=" + type;
+    const formItem = this.state.formItem;
+    const api = endPoint.register;
     const data = {
-      alamat: formItem.alamat,
-      email: formItem.email,
-      fullName: formItem.fullName,
-      ktp: formItem.ktp,
-      password: formItem.password,
-      phone: formItem.phone,
-      tanggalLahir: formItem.tanggalLahir,
       username: formItem.username,
+      password: formItem.password,
+      role: this.props.navigation.state.params.data,
+      email: formItem.email,
+      no_hp: formItem.phone,
+      no_ktp: formItem.ktp,
+      name: formItem.fullName,
+      alamat: formItem.alamat,
+      tanggalLahir: formItem.tanggalLahir,
     };
     const header = {
       headers: { "Content-Type": "application/json" },
@@ -78,8 +75,7 @@ class SignUpProviderScreen extends React.Component {
   };
 
   getResponseReg = (callback) => {
-    console.log("callback", callback);
-    if (callback != null && callback.data.message == "OK") {
+    if (callback != null && callback.data.status == "OK") {
       this.refs.defaultToastBottom.ShowToastFunction(
         "Data berhasil diregister, silahkan login"
       );
@@ -94,7 +90,7 @@ class SignUpProviderScreen extends React.Component {
       }, 1200);
     } else if (callback != null) {
       this.setState({ isVisibleLoading: false }, () => {
-        this.refs.defaultToastBottom.ShowToastFunction(callback.data.result);
+        this.refs.defaultToastBottom.ShowToastFunction(callback.data.message);
       });
     }
     this.setState({ isVisibleLoading: false });
@@ -132,7 +128,7 @@ class SignUpProviderScreen extends React.Component {
 
   _changeKTP = (value) => {
     let formItem = this.state.formItem;
-    formItem.phone = value;
+    formItem.ktp = value;
     this.setState({ formItem });
   };
 
@@ -399,7 +395,7 @@ class SignUpProviderScreen extends React.Component {
             <View>
               <FormText
                 item={{
-                  placeholder: "Alamat",
+                  placeholder: "Password",
                   value: formItem.password,
                 }}
                 changeText={this._changePassword}

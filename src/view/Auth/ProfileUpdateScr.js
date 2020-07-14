@@ -87,7 +87,6 @@ class ProfileUpdateScreen extends React.Component {
   };
 
   getAccountPersonal = (callback) => {
-    console.log("callback", callback);
     if (callback != null && callback.data.message == "OK") {
       let dataUser = this.state.dataUser;
       let formItem = this.state.formItem;
@@ -124,7 +123,6 @@ class ProfileUpdateScreen extends React.Component {
   };
 
   responeListProvinsi = (callback) => {
-    console.log("callback", callback);
     if (callback.data.message == "OK") {
       let listProvinsi = callback.data.result;
       this.setState({ listProvinsi });
@@ -178,7 +176,6 @@ class ProfileUpdateScreen extends React.Component {
   };
 
   getResponseReg = (callback) => {
-    console.log("callback", callback);
     if (callback != null && callback.data.message == "OK") {
       this.refs.defaultToastBottom.ShowToastFunction("Data Berhasil diupdate");
       setTimeout(() => {
@@ -260,7 +257,6 @@ class ProfileUpdateScreen extends React.Component {
   };
 
   responeListKabupaten = (callback) => {
-    console.log("callback", callback);
     if (callback.data.message == "OK") {
       let listKabupaten = callback.data.result;
       this.setState({ listKabupaten });
@@ -295,7 +291,6 @@ class ProfileUpdateScreen extends React.Component {
   };
 
   responeListKecamatan = (callback) => {
-    console.log("callback", callback);
     if (callback.data.message == "OK") {
       let listKecamatan = callback.data.result;
       this.setState({ listKecamatan });

@@ -14,7 +14,7 @@ class SplashScreen extends React.Component {
   static navigationOptions = { header: null };
 
   state = {
-    accessToken: "",
+    token: "",
     dataUser: null,
   };
 
@@ -26,19 +26,14 @@ class SplashScreen extends React.Component {
 
   getTokenFromStorage = (dataUser) => {
     if (dataUser != null) {
-      if (dataUser.accessToken == null || dataUser.accessToken == undefined) {
+      if (dataUser.token == null || dataUser.token == undefined) {
         getAsyncStoreSave("dataUser", null, () =>
           resetNavigation("WelcomeLogin", this.props.navigation)
         );
       }
-      this.setState({ dataUser, accessToken: dataUser.accessToken });
-      let api = null;
-      if (dataUser.typeUser == "RENTER") {
-        api = endPoint.getDetailCustomer + "/" + dataUser.id;
-      } else {
-        api = endPoint.getDetailVendor + "/" + dataUser.id;
-      }
-      let header = { headers: { "Content-Type": "application/json" } };
+      this.setState({ token: dataUser.token });
+      const api = endPoint.getDetailUser + "?token=" + dataUser.token;
+      const header = { headers: { "Content-Type": "application/json" } };
       this.setState({ dataUser }, () => {
         apiCall.get(api, header, this.getAccountPersonal);
       });
@@ -48,9 +43,9 @@ class SplashScreen extends React.Component {
   };
 
   getAccountPersonal = (callback) => {
-    if (callback != null && callback.data.message == "OK") {
-      getAsyncStoreSave("personalData", callback.data.result, () => {
-        this.state.dataUser.typeUser == "RENTER"
+    if (callback != null && callback.data.status == "OK") {
+      getAsyncStoreSave("personalData", callback.data.data, () => {
+        callback.data.data.role == "RENTER"
           ? resetNavigation("CustomerIndex", this.props.navigation)
           : resetNavigation("ProviderIndex", this.props.navigation);
       });

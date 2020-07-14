@@ -23,26 +23,17 @@ class ProfileScreen extends React.Component {
   };
 
   componentDidMount = () => {
-    // getAsyncStoreLoad('dataUser', this.getDataUser);
+    getAsyncStoreLoad("dataUser", this.getDataUser);
   };
 
   getDataUser = (dataUser) => {
     this.setState({ dataUser }, () => {
-      this.getDetailProfile(dataUser);
+      getAsyncStoreLoad("personalData", this.getPersonalData);
     });
   };
 
-  getDetailProfile = (dataUser) => {
-    const api = endPoint.getDetailVendor + "/" + dataUser.id;
-    const header = { headers: { "Content-Type": "application/json" } };
-    apiCall.get(api, header, this.responeDetailProfile);
-  };
-
-  responeDetailProfile = (callback) => {
-    console.log("responeDetailProfile", callback);
-    if (callback != null && callback.data.message == "OK") {
-      this.setState({ personalData: callback.data.result });
-    }
+  getPersonalData = (personalData) => {
+    this.setState({ personalData });
   };
 
   handleOnNavigateBack = (action) => {
@@ -68,34 +59,13 @@ class ProfileScreen extends React.Component {
   };
 
   _logout = () => {
-    resetNavigation("WelcomeLogin", this.props.navigation);
-    // let dataUser = this.state.dataUser;
-    // const api = endPoint.logout;
-    // const data = {
-    //   accessToken: dataUser.accessToken,
-    // };
-    // const header = {
-    //   headers: { "Content-Type": "application/json" },
-    // };
-    // apiCall.post(api, data, this.responeLogout, header);
-  };
-
-  responeLogout = (callback) => {
-    console.log("callback", callback);
-    if (callback != null && callback.data.message == "OK") {
-      setTimeout(() => {
-        getAsyncStoreSave("dataUser", null, () => {
-          getAsyncStoreSave("personalData", null, null);
-        });
-        this.setState({ isVisibleLoading: false }, () => {
-          resetNavigation("WelcomeLogin", this.props.navigation);
-        });
-      }, 300);
-    } else if (callback != null) {
-      this.setState({ isVisibleLoading: false }, () => {
-        this.refs.defaultToastBottom.ShowToastFunction(callback.data.result);
-      });
-    }
+    getAsyncStoreSave("dataUser", null, () => {
+      getAsyncStoreSave(
+        "personalData",
+        null,
+        resetNavigation("WelcomeLogin", this.props.navigation)
+      );
+    });
   };
 
   _changePassword = () => {
@@ -138,8 +108,7 @@ class ProfileScreen extends React.Component {
               }}
             >
               <Text bold style={{ color: colorGreyDark, fontSize: 20 }}>
-                Halo{" "}
-                {this.state.personalData && this.state.personalData.vendorName}
+                Halo {this.state.personalData && this.state.personalData.name}
               </Text>
             </View>
           </View>
