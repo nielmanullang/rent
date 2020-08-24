@@ -115,8 +115,8 @@ class ProductDetailScreen extends React.Component {
     const dataUser = this.state.dataUser;
     const api = endPoint.transactionsCreate + "?token=" + dataUser.token;
     const productDetail = this.state.productDetail;
-    const count = moment(this.state.tanggalAwal).diff(
-      moment(this.state.tanggalAkhir),
+    const count = moment(this.state.tanggalAkhir).diff(
+      moment(this.state.tanggalAwal),
       "days"
     );
     const data = {

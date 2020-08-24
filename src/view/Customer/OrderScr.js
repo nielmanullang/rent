@@ -1,7 +1,7 @@
 import moment from "moment";
 import { Container, Content, Text, View } from "native-base";
 import React from "react";
-import { Dimensions, StatusBar } from "react-native";
+import { Dimensions, StatusBar, RefreshControl } from "react-native";
 import { colorPrimary } from "./../../../app.json";
 import Toast from "./../../components/Toast";
 import { apiCall, getAsyncStoreLoad } from "./../../redux/actions/commonAction";
@@ -16,6 +16,7 @@ class ChatScreen extends React.Component {
     dataUser: null,
     personalData: null,
     listTransactions: [],
+    isRefreshing: false,
   };
 
   componentDidMount = () => {
@@ -40,7 +41,12 @@ class ChatScreen extends React.Component {
   responeListTransactions = (callback) => {
     console.log("callback12", callback);
     if (callback != null && callback.data && callback.data.data) {
-      this.setState({ listTransactions: callback.data.data });
+      this.setState({
+        listTransactions: callback.data.data,
+        isRefreshing: false,
+      });
+    } else {
+      this.setState({ isRefreshing: false });
     }
   };
 
@@ -48,12 +54,25 @@ class ChatScreen extends React.Component {
     this.setState({ personalData });
   };
 
+  _onRefresh = () => {
+    this.setState({ isRefreshing: true });
+    this.getListTransactions();
+  };
+
   render() {
     const listTransactions = this.state.listTransactions;
     return (
       <Container>
         <StatusBar hidden={true} />
-        <Content>
+        <Content
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this._onRefresh}
+              title="Loading..."
+            />
+          }
+        >
           <View>
             {listTransactions && listTransactions.length > 0 ? (
               listTransactions.map((data, i) => {

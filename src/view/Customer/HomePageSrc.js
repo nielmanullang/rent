@@ -1,6 +1,6 @@
 import { Container, Content, View } from "native-base";
 import React from "react";
-import { Dimensions, StatusBar } from "react-native";
+import { Dimensions, StatusBar, RefreshControl } from "react-native";
 import Product from "./../../components/Item/Product";
 import ItemGroup from "./../../components/Item/ItemGroup";
 import Toast from "./../../components/Toast";
@@ -21,6 +21,7 @@ class HomePageScreen extends React.Component {
     personalData: null,
     listVehicles: [],
     listHeader: [],
+    isRefreshing: false,
   };
 
   componentDidMount = () => {
@@ -43,7 +44,9 @@ class HomePageScreen extends React.Component {
 
   responeListVehicles = (callback) => {
     if (callback != null && callback.data && callback.data.data) {
-      this.setState({ listVehicles: callback.data.data });
+      this.setState({ listVehicles: callback.data.data, isRefreshing: false });
+    } else {
+      this.setState({ isRefreshing: false });
     }
   };
 
@@ -63,11 +66,24 @@ class HomePageScreen extends React.Component {
     }
   };
 
+  _onRefresh = () => {
+    this.setState({ isRefreshing: true });
+    this.getListVehicles();
+  };
+
   render() {
     return (
       <Container>
         <StatusBar hidden={true} />
-        <Content>
+        <Content
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this._onRefresh}
+              title="Loading..."
+            />
+          }
+        >
           <View style={{ padding: 15 }}>
             <View
               style={{
