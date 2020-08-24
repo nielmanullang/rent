@@ -1,28 +1,28 @@
-import {Icon, Text, View} from 'native-base';
-import React from 'react';
-import {Dimensions, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {colorBlack} from '../../../app.json';
+import { Icon, Text, View } from "native-base";
+import React from "react";
+import { Dimensions, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { colorBlack } from "../../../app.json";
 import {
   convertNumber,
   convertToLetterCase,
-} from '../../../native-base-theme/variables/convert';
-import {moderateScale} from '../../../native-base-theme/variables/fonts';
+} from "../../../native-base-theme/variables/convert";
+import { moderateScale } from "../../../native-base-theme/variables/fonts";
 
-const WIDTH = Dimensions.get('window').width;
+const WIDTH = Dimensions.get("window").width;
 const paddingImg = WIDTH * 0.024;
 const widthImg = WIDTH * 0.4;
 const heightImg = WIDTH * 0.55;
 
 const styles = StyleSheet.create({
   title: {
-    textAlign: 'left',
+    textAlign: "left",
     fontSize: moderateScale(11),
     marginLeft: 5,
   },
   image: {
     width: widthImg,
     height: widthImg - 30,
-    resizeMode: 'cover',
+    resizeMode: "cover",
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
   },
@@ -55,40 +55,44 @@ class Product extends React.Component {
 
     return (
       <TouchableOpacity
-        onPress={() => this.props._actionDetail(this.props.item)}>
+        onPress={() => this.props._actionDetail(this.props.item)}
+      >
         <View
           style={{
             marginBottom: 24,
             borderWidth: 1,
-            borderColor: '#F0F0F0',
+            borderColor: "#F0F0F0",
             width: widthImg,
             height: heightImg,
             marginLeft: paddingImg,
             marginRight: paddingImg,
             borderRadius: 15,
-            shadowColor: '#000',
-            shadowOffset: {width: 0, height: 0.5},
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 0.5 },
             shadowOpacity: 0.8,
             shadowRadius: 2,
-          }}>
+          }}
+        >
+          {console.log("this.props.item.gambar", this.props.item.gambar)}
           <Image
-            source={{uri: this.props.item.gambar}}
+            source={{ uri: this.props.item.gambar }}
             style={styles.image}
           />
           <View
             style={{
-              flexDirection: 'row',
-              alignContent: 'center',
-              justifyContent: 'center',
+              flexDirection: "row",
+              alignContent: "center",
+              justifyContent: "center",
               marginTop: 10,
-            }}>
+            }}
+          >
             {rating.map((data, i) => {
               return (
                 <Icon
                   key={i}
                   type="FontAwesome"
-                  name={data.picked ? 'star' : 'star-o'}
-                  style={{color: colorBlack, fontSize: 20}}
+                  name={data.picked ? "star" : "star-o"}
+                  style={{ color: colorBlack, fontSize: 20 }}
                 />
               );
             })}
@@ -96,18 +100,16 @@ class Product extends React.Component {
           <View>
             <Text style={styles.title}>
               {convertToLetterCase(this.props.item.status) +
-                ' ' +
+                " " +
                 convertToLetterCase(this.props.item.jenis)}
             </Text>
             <Text style={styles.title}>
-              {'Rp.' +
+              {"Rp." +
                 convertNumber(this.props.item.harga) +
-                ' - Rp.' +
+                " - Rp." +
                 convertNumber(this.props.item.harga)}
             </Text>
-            <Text style={styles.title}>
-              {this.props.item.deskripsi}
-            </Text>
+            <Text style={styles.title}>{this.props.item.deskripsi}</Text>
           </View>
         </View>
       </TouchableOpacity>

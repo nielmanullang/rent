@@ -1,8 +1,8 @@
 {
   "name": "rent",
   "displayName": "rent",
-  "apiUrl": "https://1d40587f6628.ngrok.io",
-  "apiUrlDev": "https://1d40587f6628.ngrok.io",
+  "apiUrl": "https://65480310f2ef.ngrok.io",
+  "apiUrlDev": "https://65480310f2ef.ngrok.io",
   "debug": false,
   "colorPrimary": "#eedf51",
   "colorPrimaryDark": "#eed121",
