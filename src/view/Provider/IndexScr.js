@@ -16,6 +16,8 @@ export class IndexScreen extends React.Component {
 
   componentDidMount = () => {};
 
+  componentWillUnmount = () => {};
+
   render() {
     return <Tab1 navigation={this.props.navigation} />;
   }

@@ -22,6 +22,7 @@ class HomePageScreen extends React.Component {
     personalData: null,
     listTransactions: [],
     isRefreshing: false,
+    isVisibleLoading: false,
   };
 
   componentDidMount = () => {
@@ -29,6 +30,10 @@ class HomePageScreen extends React.Component {
     getAsyncStoreLoad("personalData", this.getPersonalData);
   };
 
+  componentWillUnmount = () => {
+    getAsyncStoreLoad("dataUser", this.getDataUser);
+    getAsyncStoreLoad("personalData", this.getPersonalData);
+  };
   getDataUser = (dataUser) => {
     this.setState({ dataUser }, () => {
       this.getListTransactions();
@@ -44,7 +49,6 @@ class HomePageScreen extends React.Component {
   };
 
   responeListTransactions = (callback) => {
-    console.log("callback12", callback);
     if (callback != null && callback.data && callback.data.data) {
       this.setState({
         listTransactions: callback.data.data,
@@ -74,7 +78,6 @@ class HomePageScreen extends React.Component {
   };
 
   getResponseReg = (callback, status) => {
-    console.log("callback", callback);
     if (callback != null && callback.data.status == "OK") {
       const text = status === "APPROVE" ? "Accept" : "Reject";
       this.refs.defaultToastBottom.ShowToastFunction(

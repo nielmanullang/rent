@@ -6,6 +6,7 @@ import ItemGroup from "./../../components/Item/ItemGroup";
 import Toast from "./../../components/Toast";
 import { apiCall, getAsyncStoreLoad } from "./../../redux/actions/commonAction";
 import endPoint from "./../../redux/service/endPoint";
+import Geolocation from '@react-native-community/geolocation';
 
 const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
@@ -27,7 +28,13 @@ class HomePageScreen extends React.Component {
   componentDidMount = () => {
     getAsyncStoreLoad("dataUser", this.getDataUser);
     getAsyncStoreLoad("personalData", this.getPersonalData);
+    Geolocation.getCurrentPosition(info => console.log(info));
   };
+
+  componentWillUnmount = () => {
+    getAsyncStoreLoad("dataUser", this.getDataUser);
+    getAsyncStoreLoad("personalData", this.getPersonalData);
+  }
 
   getDataUser = (dataUser) => {
     if (dataUser && dataUser.role === "RENTER") {

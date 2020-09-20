@@ -26,6 +26,10 @@ class ProfileScreen extends React.Component {
     getAsyncStoreLoad("dataUser", this.getDataUser);
   };
 
+  componentWillUnmount = () => {
+    getAsyncStoreLoad("dataUser", this.getDataUser);
+  }
+
   getDataUser = (dataUser) => {
     this.setState({ dataUser }, () => {
       getAsyncStoreLoad("personalData", this.getPersonalData);

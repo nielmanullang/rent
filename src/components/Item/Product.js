@@ -73,7 +73,6 @@ class Product extends React.Component {
             shadowRadius: 2,
           }}
         >
-          {console.log("this.props.item.gambar", this.props.item.gambar)}
           <Image
             source={{ uri: this.props.item.gambar }}
             style={styles.image}

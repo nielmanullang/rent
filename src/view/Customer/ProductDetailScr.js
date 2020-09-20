@@ -40,6 +40,11 @@ class ProductDetailScreen extends React.Component {
     getAsyncStoreLoad("personalData", this.getPersonalData);
   };
 
+  componentWillUnmount = () => {
+    getAsyncStoreLoad("dataUser", this.getDataUser);
+    getAsyncStoreLoad("personalData", this.getPersonalData);
+  };
+
   getDataUser = (dataUser) => {
     this.setState({ dataUser }, () => {
       this.getProductDetail();
@@ -68,7 +73,6 @@ class ProductDetailScreen extends React.Component {
   };
 
   _renderItem({ item }) {
-    console.log("item", item);
     return (
       <View
         style={{
@@ -131,12 +135,10 @@ class ProductDetailScreen extends React.Component {
     const header = {
       headers: { "Content-Type": "application/json" },
     };
-    console.log("data", data);
     apiCall.post(api, data, this.getResponseReg, header);
   };
 
   getResponseReg = (callback) => {
-    console.log("callback", callback);
     if (callback != null && callback.data.status == "OK") {
       this.refs.defaultToastBottom.ShowToastFunction("Transaksi berhasil");
       setTimeout(() => {
@@ -232,7 +234,6 @@ class ProductDetailScreen extends React.Component {
     let rating = [];
     let j;
     if (productDetail != null) {
-      console.log("productDetail.gambar", productDetail.gambar);
       const datas = [];
       datas.push(productDetail.gambar);
       if (productDetail.rating !== undefined && productDetail.rating !== null) {

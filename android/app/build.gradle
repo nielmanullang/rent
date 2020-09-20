@@ -159,11 +159,15 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            // Google Maps api key
+            resValue "string", "google_maps_api_key", ""
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
             signingConfig signingConfigs.release
+            // Google Maps api key
+            resValue "string", "google_maps_api_key", ""
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
