@@ -170,6 +170,7 @@ android {
             resValue "string", "google_maps_api_key", ""
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            resValue "string", "google_maps_api_key", ""
         }
     }
     // applicationVariants are e.g. debug, release

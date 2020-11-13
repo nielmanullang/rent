@@ -28,7 +28,7 @@ class SplashScreen extends React.Component {
     if (dataUser != null) {
       if (dataUser.token == null || dataUser.token == undefined) {
         getAsyncStoreSave("dataUser", null, () =>
-          resetNavigation("WelcomeLogin", this.props.navigation)
+          resetNavigation("Welcome", this.props.navigation)
         );
       }
       this.setState({ token: dataUser.token });
@@ -38,7 +38,7 @@ class SplashScreen extends React.Component {
         apiCall.get(api, header, this.getAccountPersonal);
       });
     } else {
-      resetNavigation("WelcomeLogin", this.props.navigation);
+      resetNavigation("Welcome", this.props.navigation);
     }
   };
 
@@ -50,7 +50,7 @@ class SplashScreen extends React.Component {
           : resetNavigation("ProviderIndex", this.props.navigation);
       });
     } else {
-      resetNavigation("WelcomeLogin", this.props.navigation);
+      resetNavigation("Welcome", this.props.navigation);
     }
   };
 

@@ -13,9 +13,6 @@ import Map from "../../components/Modal/Map";
 import { apiCall, getAsyncStoreLoad } from "./../../redux/actions/commonAction";
 import endPoint from "./../../redux/service/endPoint";
 
-const WIDTH = Dimensions.get("window").width;
-const HEIGHT = Dimensions.get("window").height;
-
 class ChatScreen extends React.Component {
   static navigationOptions = { header: null };
   state = {

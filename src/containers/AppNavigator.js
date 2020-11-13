@@ -1,15 +1,13 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import LoginScr from "../view/Auth/LoginScr";
-import WelcomeLoginScr from "../view/Auth/WelcomeLoginScr";
-import WelcomeSignUpScr from "../view/Auth/WelcomeSignUpScr";
+import SignUpScr from "../view/Auth/SignUpScr";
+import WelcomeScr from "../view/Auth/WelcomeScr";
 //RENTER
 import CustomerIndexScr from "../view/Customer/IndexScr";
 import ProductDetailScr from "../view/Customer/ProductDetailScr";
-import SignUpCustomerScr from "../view/Customer/SignUpScr";
 //PROVIDER
 import ProviderIndexScr from "../view/Provider/IndexScr";
-import SignUpProviderScr from "../view/Provider/SignUpScr";
 //AUTH
 import SplashScr from "../view/SplashScr";
 
@@ -17,17 +15,15 @@ const AppNavigator = createStackNavigator(
   {
     Splash: { screen: SplashScr },
     //AUTH
-    WelcomeLogin: { screen: WelcomeLoginScr },
-    WelcomeSignUp: { screen: WelcomeSignUpScr },
+    Welcome: { screen: WelcomeScr },
     Login: { screen: LoginScr },
+    SignUp: { screen: SignUpScr },
 
     //RENTER
-    SignUpCustomer: { screen: SignUpCustomerScr },
     CustomerIndex: { screen: CustomerIndexScr },
     ProductDetail: { screen: ProductDetailScr },
 
     //PROVIDER
-    SignUpProvider: { screen: SignUpProviderScr },
     ProviderIndex: { screen: ProviderIndexScr },
   },
   {

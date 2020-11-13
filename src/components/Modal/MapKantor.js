@@ -1,11 +1,10 @@
 import { Text, View } from "native-base";
 import React from "react";
-import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import Modal from "react-native-modal";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 const WIDTH = Dimensions.get("window").width;
-const HEIGHT = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   contentDisModal: {
@@ -38,7 +37,7 @@ class Map extends React.Component {
       >
         <View style={styles.contentDisModal}>
           <View style={styles.title}>
-            <Text title>{"Posisi " + this.props.item.plat}</Text>
+            <Text title>{"Posisi "}</Text>
           </View>
           <View style={{ height: "75%" }}>
             {/* <Text style={styles.desc}>{"this.props.item.desc"}</Text> */}
@@ -47,16 +46,16 @@ class Map extends React.Component {
               style={styles.map}
               minZoomLevel={16}
               region={{
-                latitude: parseFloat(this.props.item.latitude),
-                longitude: parseFloat(this.props.item.longitude),
+                latitude: parseFloat(-6.2006314),
+                longitude: parseFloat(106.7826341),
                 latitudeDelta: 0.015,
                 longitudeDelta: 0.0121,
               }}
             >
               <Marker
                 coordinate={{
-                  latitude: parseFloat(this.props.item.latitude),
-                  longitude: parseFloat(this.props.item.longitude),
+                  latitude: parseFloat(-6.2006314),
+                  longitude: parseFloat(106.7826341),
                 }}
               />
             </MapView>

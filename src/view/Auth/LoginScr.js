@@ -15,7 +15,6 @@ import {
   colorPrimary,
   colorPrimaryDark,
 } from "./../../../app.json";
-import { convertToLetterCase } from "./../../../native-base-theme/variables/convert";
 import logo from "./../../assets/images/logo.png";
 import Toast from "./../../components/Toast";
 import {
@@ -26,7 +25,6 @@ import {
 import endPoint from "./../../redux/service/endPoint";
 
 const WIDTH = Dimensions.get("window").width;
-const HEIGHT = Dimensions.get("window").height;
 const WIDTH2 = Dimensions.get("window").width - 100;
 
 class Login extends React.Component {
@@ -52,15 +50,10 @@ class Login extends React.Component {
   }
 
   _requestLogin = () => {
-    let type =
-      this.props.navigation.state.params.data == "RENTER"
-        ? "RENTER"
-        : "PROVIDER";
     const api = endPoint.login;
     const data = {
       username: this.state.username,
       password: this.state.password,
-      role: type,
     };
     const header = {
       headers: {
@@ -166,9 +159,6 @@ class Login extends React.Component {
                 style={{ color: colorGreyDark, fontSize: 40, marginBottom: 10 }}
               >
                 Sign In
-              </Text>
-              <Text style={{ color: colorGreyDark, fontSize: 20 }}>
-                {convertToLetterCase(this.props.navigation.state.params.data)}
               </Text>
             </View>
             <Text

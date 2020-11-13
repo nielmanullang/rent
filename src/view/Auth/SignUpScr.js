@@ -1,13 +1,5 @@
 import moment from "moment";
-import {
-  Container,
-  Content,
-  Header,
-  Icon,
-  Picker,
-  Text,
-  View,
-} from "native-base";
+import { Container, Content, Header, Icon, Text, View } from "native-base";
 import React from "react";
 import { Dimensions, StatusBar, TouchableOpacity } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -29,7 +21,7 @@ const WIDTH = Dimensions.get("window").width;
 const HEIGHT = Dimensions.get("window").height;
 const WIDTH2 = Dimensions.get("window").width - 100;
 
-class SignUpCustomerScreen extends React.Component {
+class SignUpScreen extends React.Component {
   static navigationOptions = { header: null };
 
   state = {
@@ -54,13 +46,13 @@ class SignUpCustomerScreen extends React.Component {
     const data = {
       username: formItem.username,
       password: formItem.password,
-      role: this.props.navigation.state.params.data,
       email: formItem.email,
       no_hp: formItem.phone,
       no_ktp: formItem.ktp,
       name: formItem.fullName,
       alamat: formItem.alamat,
       tanggalLahir: formItem.tanggalLahir,
+      role: "RENTER",
     };
     const header = {
       headers: { "Content-Type": "application/json" },
@@ -75,11 +67,7 @@ class SignUpCustomerScreen extends React.Component {
       );
       setTimeout(() => {
         this.setState({ isVisibleLoading: false }, () => {
-          resetNavigation(
-            "WelcomeLogin",
-            this.props.navigation,
-            this.props.navigation.state.params.data
-          );
+          resetNavigation("Login", this.props.navigation);
         });
       }, 1200);
     } else if (callback != null) {
@@ -287,7 +275,7 @@ class SignUpCustomerScreen extends React.Component {
                 Sign Up
               </Text>
               <Text style={{ color: colorGreyDark, fontSize: 20 }}>
-                {convertToLetterCase(this.props.navigation.state.params.data)}
+                {convertToLetterCase("Renter")}
               </Text>
             </View>
             <View>
@@ -406,4 +394,4 @@ class SignUpCustomerScreen extends React.Component {
   }
 }
 
-export default SignUpCustomerScreen;
+export default SignUpScreen;

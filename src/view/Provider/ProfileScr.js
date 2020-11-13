@@ -28,7 +28,7 @@ class ProfileScreen extends React.Component {
 
   componentWillUnmount = () => {
     getAsyncStoreLoad("dataUser", this.getDataUser);
-  }
+  };
 
   getDataUser = (dataUser) => {
     this.setState({ dataUser }, () => {
@@ -67,7 +67,7 @@ class ProfileScreen extends React.Component {
       getAsyncStoreSave(
         "personalData",
         null,
-        resetNavigation("WelcomeLogin", this.props.navigation)
+        resetNavigation("Welcome", this.props.navigation)
       );
     });
   };
