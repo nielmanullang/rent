@@ -10,5 +10,6 @@
   "colorGreyDark": "#383838",
   "colorGreylight": "#a9a9a9",
   "colorGrey": "#dfdfdf",
-  "colorBlack": "#000000"
+  "colorBlack": "#000000",
+  "mapApiKey": ""
 }

@@ -3,6 +3,7 @@ import React from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import Modal from "react-native-modal";
+import { mapApiKey } from "./../../../app.json";
 
 const WIDTH = Dimensions.get("window").width;
 
@@ -28,6 +29,28 @@ const styles = StyleSheet.create({
 });
 
 class Map extends React.Component {
+  state = {
+    latitude: -6.2006314,
+    longitude: 106.7826341,
+  };
+
+  componentDidMount() {
+    fetch(
+      "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+        this.state.latitude +
+        "," +
+        this.state.longitude +
+        "&key=" +
+        mapApiKey
+    )
+      .then((response) => response.json())
+      .then((responseJson) => {
+        console.log(
+          "ADDRESS GEOCODE is BACK!! => " + JSON.stringify(responseJson)
+        );
+      });
+  }
+
   render() {
     return (
       <Modal
@@ -36,29 +59,28 @@ class Map extends React.Component {
         onRequestClose={() => this.props._isVisible(false)}
       >
         <View style={styles.contentDisModal}>
-          <View style={styles.title}>
-            <Text title>{"Posisi "}</Text>
-          </View>
           <View style={{ height: "75%" }}>
-            {/* <Text style={styles.desc}>{"this.props.item.desc"}</Text> */}
             <MapView
               provider={PROVIDER_GOOGLE} // remove if not using Google Maps
               style={styles.map}
               minZoomLevel={16}
               region={{
-                latitude: parseFloat(-6.2006314),
-                longitude: parseFloat(106.7826341),
+                latitude: parseFloat(this.state.latitude),
+                longitude: parseFloat(this.state.longitude),
                 latitudeDelta: 0.015,
                 longitudeDelta: 0.0121,
               }}
             >
               <Marker
                 coordinate={{
-                  latitude: parseFloat(-6.2006314),
-                  longitude: parseFloat(106.7826341),
+                  latitude: parseFloat(this.state.latitude),
+                  longitude: parseFloat(this.state.longitude),
                 }}
               />
             </MapView>
+          </View>
+          <View style={styles.title}>
+            <Text title>{"Posisi "}</Text>
           </View>
         </View>
       </Modal>
